@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cqupt.weixin.app.dao.CourseMapper">
+    <select id="findCourseById" parameterType="Course" resultType="Course">
+        select courseId,courseName from course where openId=#{openId} and state=#{state}
+    </select>
+    <insert id="addCourse" parameterType="Courses" >
+        insert into courses(`course_name`,course_id ) values
+         (#{courseName},#{courseId})
+    </insert>
+    <insert id="addClasses" parameterType="Classes" >
+        insert into classes(`class_name`,class_id ) values
+         (#{className},#{classId})
+    </insert>
+    <insert id="courseAndClasses" parameterType="CourseAndClassVo">
+        insert into class_course (class_name,course_id) values (#{className},#{courseId})
+    </insert>
+
+    <select id="findCourseInfoById" parameterType="Integer" resultType="course">
+        select * from course where courseId=#{courseId}
+    </select>
+    <insert id="addClass" parameterType="Students" >
+        insert into students (`name`,sno,class_id,open_id) values (#{name },#{sno},#{classId},#{openId})
+    </insert>
+    <insert id="saveFile" parameterType="CourseWare" >
+        insert into courseware (file_name,original_filename,file_size) values (#{fileName},#{originalFilename},#{fileSize})
+    </insert>
+    <select id="findAllFile" resultType="CourseWare">
+        select * from courseware
+    </select>
+    <select id="findFile" parameterType="String" resultType="CourseWare">
+        select file_size from courseware where original_filename=#{original_filename}
+    </select>
+    <insert id="addTeacher" parameterType="Teacher" >
+        insert into  teachers (teach_name,teach_id) values (#{teachName},#{teachId})
+    </insert>
+    <select id="findTeacherByName" parameterType="Teacher" resultType="Teacher">
+        select * from teachers where teach_name=#{teachName}
+    </select>
+    <insert id="addTeacherAndCourse" parameterType="TeacherAndCourseVo">
+        insert into teach_course(teach_id,course_id,open_id) values (#{teachId},#{courseId},#{openId})
+    </insert>
+    <insert id="addClassAndTeacher" parameterType="ClassAndTeacherVo">
+        insert into class_teach (class_name,teach_id) values (#{className},#{teachId})
+    </insert>
+    <select id="findAllTeacher" resultType="Teacher">
+        select * from teachers
+    </select>
+    <select id="findCourseId" parameterType="OpenId" resultType="Courses">
+        select course_id from teach_course where open_id=#{openId} ;
+    </select>
+    <select id="findCourses" parameterType="String" resultType="Courses">
+        select *  from courses
+         <where>
+             <foreach  collection="list" item="openId" open="course_id in(" close=")"
+                      separator=",">
+                 #{openId }
+             </foreach>
+         </where>
+    </select>
+    <select id="findClassByOpenid" parameterType="OpenId" resultType="Classes">
+        select class_id from students where open_id=#{openId}
+    </select>
+    <select id="findClassName" parameterType="Classes" resultType="Classes">
+        select class_name from classes where class_id=#{classId}
+    </select>
+    <select id="findCourseIdByClassName" parameterType="Classes" resultType="Courses">
+        select course_id from class_course where class_name=#{className}
+    </select>
+</mapper>

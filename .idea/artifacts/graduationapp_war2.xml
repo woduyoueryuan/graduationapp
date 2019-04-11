@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="graduationapp:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/graduationapp_war2</output-path>
+    <root id="archive" name="graduationapp_war.war">
+      <element id="artifact" artifact-name="graduationapp:war exploded" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/webapp" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="Maven: com.alibaba:jconsole:1.8.0" module-name="graduationapp" />
+          <element id="library" level="module" name="Maven: com.alibaba:tools:1.8.0" module-name="graduationapp" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
