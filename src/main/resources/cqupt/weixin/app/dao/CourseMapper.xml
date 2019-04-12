@@ -18,8 +18,8 @@
         insert into class_course (class_name,course_id) values (#{className},#{courseId})
     </insert>
 
-    <select id="findCourseInfoById" parameterType="Integer" resultType="course">
-        select * from course where courseId=#{courseId}
+    <select id="findCourseInfoById" parameterType="String" resultType="CourseInfoVo">
+        select * from course_info where course_id=#{courseId}
     </select>
     <insert id="addClass" parameterType="Students" >
         insert into students (`name`,sno,class_id,open_id) values (#{name },#{sno},#{classId},#{openId})
@@ -34,7 +34,7 @@
         select file_size from courseware where original_filename=#{original_filename}
     </select>
     <insert id="addTeacher" parameterType="Teacher" >
-        insert into  teachers (teach_name,teach_id) values (#{teachName},#{teachId})
+        insert into  teachers (teach_name,teach_id,open_id) values (#{teachName},#{teachId},#{openId})
     </insert>
     <select id="findTeacherByName" parameterType="Teacher" resultType="Teacher">
         select * from teachers where teach_name=#{teachName}
@@ -68,5 +68,13 @@
     </select>
     <select id="findCourseIdByClassName" parameterType="Classes" resultType="Courses">
         select course_id from class_course where class_name=#{className}
+    </select>
+    <insert id="insertCourseInfo" parameterType="CourseInfoVo" >
+        insert into course_info (course_name,class_id,classroom,is_complete,teach_name,course_id) values
+        (#{courseName},#{classId},#{classroom},#{isComplete},#{teachName},#{courseId})
+
+    </insert>
+    <select id="findIsExistStu" parameterType="Students" resultType="Students">
+        select `name` from students where open_id=#{openId}
     </select>
 </mapper>

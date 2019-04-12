@@ -9,7 +9,7 @@ public interface CourseMapper {
     public List<Course> findCourseById(Course courses);
 
     Integer addCourse(Courses courses);
-    Course findCourseInfoById(Integer courseId);
+    CourseInfoVo findCourseInfoById(String courseId);
 
     Integer addClass(Students students);
 
@@ -42,4 +42,9 @@ public interface CourseMapper {
     Classes findClassName(Classes classByOpenid);
 
     List<Courses> findCourseIdByClassName(Classes className);
+
+    Integer insertCourseInfo(CourseInfoVo courseInfoVo);
+
+    Students findIsExistStu(Students students);
+
 }

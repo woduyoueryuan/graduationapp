@@ -4,6 +4,7 @@ public class Teacher {
     private Integer id;
     private String teachName;
     private String teachId;
+    private String openId;
 
     public Teacher() {
     }
@@ -30,5 +31,13 @@ public class Teacher {
 
     public void setTeachId(String teachId) {
         this.teachId = teachId;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 }

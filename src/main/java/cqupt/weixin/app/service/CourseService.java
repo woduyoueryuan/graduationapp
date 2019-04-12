@@ -9,7 +9,7 @@ public interface CourseService {
 
     boolean addCourse(Courses courses);
 
-    Course findCourseInfoById(Integer courseId);
+    CourseInfoVo findCourseInfoById(String courseId);
 
     boolean addClass(Students students);
 
@@ -42,4 +42,8 @@ public interface CourseService {
     Classes findClassName(Classes classByOpenid);
 
     List<Courses> findCourseIdByClassName(Classes className);
+
+    boolean insertCourseInfo(CourseInfoVo courseInfoVo);
+
+    Students findIsExistStu(Students students);
 }

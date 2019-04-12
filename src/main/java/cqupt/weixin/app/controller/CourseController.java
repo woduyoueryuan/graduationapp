@@ -81,7 +81,7 @@ public class CourseController {
 
     @RequestMapping("/addCourse")
     @ResponseBody
-    public ResponseResult addCourse(String courseName,String classId,String teachName,String openId){
+    public ResponseResult addCourse(String courseName,String classId,String teachName,Integer classroom, String openId){
         if("".equals(courseName)||"".equals(classId)||"".equals(teachName)){
             return new ResponseResult("-1","请输入完整信息！");
         }
@@ -110,6 +110,20 @@ public class CourseController {
         classAndTeacher.setClassName(className);
         classAndTeacher.setTeacId(teacherByName.get(0).getTeachId());
         try {
+            //把课程信息加入到课程信息表中
+            CourseInfoVo courseInfoVo=new CourseInfoVo();
+            courseInfoVo.setClassId(classId);
+            courseInfoVo.setClassroom(classroom);
+            courseInfoVo.setCourseName(courseName);
+            courseInfoVo.setTeachName(teachName);
+            courseInfoVo.setCourseId(courseId);
+            //0代表没有完成，1代表完成了。
+            courseInfoVo.setIsComplete(0);
+            boolean insertCourseInfo= courseService.insertCourseInfo(courseInfoVo);
+            if(!insertCourseInfo){
+                new ResponseResult("-1","添加课程信息失败！");
+            }
+
             //关联教师课程
             boolean flag4 = courseService.addTeacherAndCourse(teacherAndCourseVo);
             //关联班级教师
@@ -137,14 +151,14 @@ public class CourseController {
     }
     @RequestMapping("/findCourseInfoById")
     @ResponseBody
-    public ResponseResult<Course> findCourseInfoById(@RequestBody Course course){
-        Course courseInfoById;
+    public ResponseResult<CourseInfoVo> findCourseInfoById(@RequestBody Courses course){
+        CourseInfoVo courseInfoById;
         try {
             courseInfoById= courseService.findCourseInfoById(course.getCourseId());
         }catch (Exception e){
             return new ResponseResult("-1","系统内部错误！");
         }
-        return new ResponseResult<Course>("200","查找成功！",courseInfoById);
+        return new ResponseResult<CourseInfoVo>("200","查找成功！",courseInfoById);
     }
     @RequestMapping("/addClass")
     public @ResponseBody ResponseResult addClass(@RequestBody Students students){
@@ -153,6 +167,11 @@ public class CourseController {
         }
         if("".equals(students.getClassId())||"".equals(students.getName())||"".equals(students.getSno())){
             return new ResponseResult("-1","请输入完整信息！");
+        }
+        //加入前先查看对应openid是不是已经加入过班级了，如果加入过则加入失败
+        Students isExistStu = courseService.findIsExistStu(students);
+        if(!(isExistStu==null)){
+            return new ResponseResult("-1","你已经加入过班级！");
         }
         boolean addClass = courseService.addClass(students);
         if(addClass){

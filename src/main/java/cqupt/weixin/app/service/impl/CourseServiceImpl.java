@@ -33,7 +33,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findCourseInfoById(Integer courseId) {
+    public CourseInfoVo findCourseInfoById(String courseId) {
 
         return courseMapper.findCourseInfoById(courseId);
 
@@ -180,6 +180,23 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Courses> findCourseIdByClassName(Classes className) {
         return courseMapper.findCourseIdByClassName(className);
+    }
+
+    @Override
+    public boolean insertCourseInfo(CourseInfoVo courseInfoVo) {
+       Integer flag= courseMapper.insertCourseInfo(courseInfoVo);
+       if(flag>0){
+           return true;
+       }else{
+
+           return false;
+       }
+    }
+
+    @Override
+    public Students findIsExistStu(Students students) {
+
+       return courseMapper.findIsExistStu(students);
     }
 
 }
