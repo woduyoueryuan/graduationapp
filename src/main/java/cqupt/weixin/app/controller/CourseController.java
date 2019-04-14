@@ -20,7 +20,7 @@ public class CourseController {
     CourseService courseService;
     @RequestMapping("/findCourseById")
     public @ResponseBody
-    //我教的课
+    //我教的课q
     ResponseResult<List<Courses>> findCourseById(@RequestBody WXSessionModel wxSessionModel,String index){
         List<Courses> coursesList=null;
         if(wxSessionModel.getOpenid()==null){

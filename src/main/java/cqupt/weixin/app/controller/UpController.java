@@ -20,16 +20,17 @@ public class UpController{
     @Autowired
     CourseService courseService;
     @RequestMapping("/upload")
-    public ResponseResult uploadMusicFile(HttpServletRequest request, MultipartFile file,String originalFilename ) {
+    public ResponseResult uploadMusicFile(HttpServletRequest request, MultipartFile file ) {
         CourseWare courseWare=new CourseWare();
         //判断文件等不等于空
+        String originalFilename=file.getOriginalFilename();
         if(file.isEmpty()){
-           return new ResponseResult("-1","文件为空，上传失败！");
+           return new ResponseResult("文件为空，上传失败！");
         }
         //判断文件是否已经上传过
         CourseWare isE = courseService.findFile(originalFilename);
         if((isE!=null)&&(isE.getFileSize()==file.getSize())){
-                return new ResponseResult("-1","此文件已存在请不要重复上传");
+                return new ResponseResult("此文件已存在请不要重复上传");
         }
         if (file != null) {
            //保存到服务器的文件名
@@ -44,7 +45,7 @@ public class UpController{
             try {
                 file.transferTo(new File("D:\\upload\\"+fileName+"."+extension));
             }catch (IOException e){
-                return new ResponseResult("-1","上传失败");
+                return new ResponseResult("上传失败");
             }
             //保存到数据库
             courseWare.setFileName(fileName + "." + extension);
@@ -52,12 +53,12 @@ public class UpController{
             courseWare.setFileSize(file.getSize());
             boolean b = courseService.saveFile(courseWare);
             if(!b){
-                return new ResponseResult("-1","上传失败！");
+                return new ResponseResult("上传失败！");
             }
 
 
         }
-        return new ResponseResult("200","上传成功！");
+        return new ResponseResult("上传成功！");
     }
     //查找所有文件
     @RequestMapping("/findAllFile")

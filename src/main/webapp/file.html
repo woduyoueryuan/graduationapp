@@ -21,7 +21,7 @@
 
 
 <body>
-
+<div class="div">
 <form id="form1" action="http://192.168.230.1:8080/graduationapp_war_exploded/upload" target="frame1" method="post"
       enctype="multipart/form-data">
 
@@ -30,15 +30,16 @@
     <input type="button" value="上传" onclick="upload()">
 
     <input type="button" value="后退" onclick="back()">
-
 </form>
+</div>
 <iframe name="frame1" frameborder="0" height="40"></iframe>
 
 <!-- 其实我们可以把iframe标签隐藏掉 -->
 
 <script type="text/javascript">
+
     function back() {
-        wx.miniProgram.navigateTo({url: '../../pages/courseware/courseware'})
+        wx.miniProgram.redirectTo({url: '../../pages/courseware/courseware'})
     }
 
     function upload() {
