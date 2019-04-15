@@ -23,10 +23,10 @@ public class UpController{
     public ResponseResult uploadMusicFile(HttpServletRequest request, MultipartFile file ) {
         CourseWare courseWare=new CourseWare();
         //判断文件等不等于空
-        String originalFilename=file.getOriginalFilename();
         if(file.isEmpty()){
-           return new ResponseResult("文件为空，上传失败！");
+            return new ResponseResult("文件为空，上传失败！");
         }
+        String originalFilename=file.getOriginalFilename();
         //判断文件是否已经上传过
         CourseWare isE = courseService.findFile(originalFilename);
         if((isE!=null)&&(isE.getFileSize()==file.getSize())){
