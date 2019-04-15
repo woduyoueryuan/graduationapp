@@ -43,7 +43,7 @@ public class UpController{
             }
             //保存文件到服务器
             try {
-                file.transferTo(new File("D:\\upload\\"+fileName+"."+extension));
+                file.transferTo(new File("/upload/"+fileName+"."+extension));
             }catch (IOException e){
                 return new ResponseResult("上传失败");
             }
