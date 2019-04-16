@@ -212,7 +212,7 @@ public class CourseController {
 
     }
     @RequestMapping("/complementCourse")
-    public ResponseResult complementCourse(Teacher teacher){
+    public @ResponseBody ResponseResult complementCourse(@RequestBody Teacher teacher){
         //根据openid查询是否有此老师，有就成功结课
         try {
 
