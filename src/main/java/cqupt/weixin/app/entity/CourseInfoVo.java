@@ -1,6 +1,7 @@
 package cqupt.weixin.app.entity;
 
 public class CourseInfoVo {
+    private Integer id;
     private String courseName;
     private String classId;
     private Integer classroom;
@@ -54,5 +55,13 @@ public class CourseInfoVo {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
