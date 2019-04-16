@@ -46,4 +46,7 @@ public interface CourseService {
     boolean insertCourseInfo(CourseInfoVo courseInfoVo);
 
     Students findIsExistStu(Students students);
+
+    boolean complementCourse(Teacher teacher);
+
 }

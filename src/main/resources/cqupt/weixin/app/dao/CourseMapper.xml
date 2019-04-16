@@ -77,4 +77,7 @@
     <select id="findIsExistStu" parameterType="Students" resultType="Students">
         select `name` from students where open_id=#{openId}
     </select>
+    <update id="complementCourse" parameterType="Teacher" >
+        update course_info set is_complete=#{isComplete} where open_id=#{openId}
+    </update>
 </mapper>

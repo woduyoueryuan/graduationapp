@@ -4,6 +4,8 @@ import cqupt.weixin.app.entity.*;
 import cqupt.weixin.app.model.WXSessionModel;
 import cqupt.weixin.app.result.ResponseResult;
 import cqupt.weixin.app.service.CourseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,14 +18,17 @@ import java.util.UUID;
 
 @Controller
 public class CourseController {
+    Logger longger= LoggerFactory.getLogger(CourseController.class);
     @Autowired
     CourseService courseService;
     @RequestMapping("/findCourseById")
     public @ResponseBody
     //我教的课q
     ResponseResult<List<Courses>> findCourseById(@RequestBody WXSessionModel wxSessionModel,String index){
+
         List<Courses> coursesList=null;
         if(wxSessionModel.getOpenid()==null){
+            longger.info("获取用户id错误！");
             return new ResponseResult("-1","没有获取到用户id");
         }
         if(index.equals("0")){
@@ -32,6 +37,7 @@ public class CourseController {
             //根据open_id 去teac_course表中查询对应的course_id 返回course_id
             List<Courses> courses = courseService.findCourseId(openId);
             if(courses.isEmpty()){
+                longger.info("您没有教的课程！");
                 return new ResponseResult("200","您没有教的课程！");
 
             }
@@ -45,6 +51,7 @@ public class CourseController {
 
                 coursesList = courseService.findCourses(courseIdList);
             }catch(Exception e){
+                longger.info("查找教的课程失败!");
                 return new ResponseResult("-1","查找教的课程失败！");
             }
 
@@ -69,6 +76,7 @@ public class CourseController {
                 coursesList = courseService.findCourses(courseIdList);
                 System.out.println(coursesList);
             }catch (Exception e){
+                longger.info("查找教的课程失败！");
                 return new ResponseResult("-1","查找学的课程失败！");
             }
 
@@ -83,6 +91,7 @@ public class CourseController {
     @ResponseBody
     public ResponseResult addCourse(String courseName,String classId,String teachName,Integer classroom, String openId){
         if("".equals(courseName)||"".equals(classId)||"".equals(teachName)){
+            longger.info("请你输入完整的信息！");
             return new ResponseResult("-1","请输入完整信息！");
         }
               //关联教师和课程,先从数据库查找有么有这个教师
@@ -90,6 +99,7 @@ public class CourseController {
         teacher.setTeachName(teachName);
         List<Teacher> teacherByName = courseService.findTeacherByName(teacher);
         if(teacherByName.isEmpty()){
+            longger.info("还没有教师！");
             return new ResponseResult("-1","还没有教师！");
         }
 
@@ -121,6 +131,7 @@ public class CourseController {
             courseInfoVo.setIsComplete(0);
             boolean insertCourseInfo= courseService.insertCourseInfo(courseInfoVo);
             if(!insertCourseInfo){
+                longger.info("添加课程失败！");
                 new ResponseResult("-1","添加课程信息失败！");
             }
 
@@ -142,9 +153,11 @@ public class CourseController {
             if(flag&&flag2&&flag3&&flag4&&flag5){
                 return new ResponseResult("200","添加成功！");
             }else {
+                longger.info("添加课程失败！");
                 return new ResponseResult("-1","添加失败！");
             }
         }catch (Exception e){
+            longger.info("添加课程失败！");
             return new ResponseResult("-1","添加失败！");
         }
 
@@ -156,6 +169,7 @@ public class CourseController {
         try {
             courseInfoById= courseService.findCourseInfoById(course.getCourseId());
         }catch (Exception e){
+            longger.info("系统内部错误！");
             return new ResponseResult("-1","系统内部错误！");
         }
         return new ResponseResult<CourseInfoVo>("200","查找成功！",courseInfoById);
@@ -163,14 +177,17 @@ public class CourseController {
     @RequestMapping("/addClass")
     public @ResponseBody ResponseResult addClass(@RequestBody Students students){
         if(students==null){
+            longger.info("请输入完整信息！");
             return new ResponseResult("-1","请输入完整信息！");
         }
         if("".equals(students.getClassId())||"".equals(students.getName())||"".equals(students.getSno())){
+            longger.info("请输入完整信息！");
             return new ResponseResult("-1","请输入完整信息！");
         }
         //加入前先查看对应openid是不是已经加入过班级了，如果加入过则加入失败
         Students isExistStu = courseService.findIsExistStu(students);
         if(!(isExistStu==null)){
+
             return new ResponseResult("-1","你已经加入过班级！");
         }
         boolean addClass = courseService.addClass(students);
@@ -192,6 +209,22 @@ public class CourseController {
             return new ResponseResult("-1","查失败询！");
         }
         return new ResponseResult<List<Teacher>>("200","查询成功！",allTeacher);
+
+    }
+    @RequestMapping("/complementCourse")
+    public ResponseResult complementCourse(Teacher teacher){
+        //根据openid查询是否有此老师，有就成功结课
+        try {
+
+            boolean b = courseService.complementCourse(teacher);
+            if(b){
+                return new ResponseResult("200","结课成功！");
+            }else {
+                return new ResponseResult("200","结课失败");
+            }
+        }catch (Exception e){
+                return new ResponseResult("-1","系统内部错误！");
+        }
 
     }
 }

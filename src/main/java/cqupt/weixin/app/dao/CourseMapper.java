@@ -47,4 +47,6 @@ public interface CourseMapper {
 
     Students findIsExistStu(Students students);
 
+    Integer complementCourse(Teacher teacher);
+
 }

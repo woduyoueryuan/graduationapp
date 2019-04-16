@@ -199,4 +199,18 @@ public class CourseServiceImpl implements CourseService {
        return courseMapper.findIsExistStu(students);
     }
 
+    @Override
+    public boolean complementCourse(Teacher teacher) {
+
+        Integer integer = courseMapper.complementCourse(teacher);
+        if(integer>0){
+            return true;
+
+        }else{
+
+            return false;
+        }
+    }
+
+
 }

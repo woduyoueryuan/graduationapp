@@ -1,6 +1,6 @@
 package cqupt.weixin.app.controller;
 
-import cqupt.weixin.app.entity.CourseWare;
+import  cqupt.weixin.app.entity.CourseWare;
 import cqupt.weixin.app.result.ResponseResult;
 import cqupt.weixin.app.service.CourseService;
 import org.apache.commons.io.FilenameUtils;
