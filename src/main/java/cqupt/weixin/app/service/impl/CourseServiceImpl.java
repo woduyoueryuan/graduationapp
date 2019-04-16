@@ -200,9 +200,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean complementCourse(Teacher teacher) {
+    public boolean complementCourse(CourseInfoVo courseInfoVo) {
 
-        Integer integer = courseMapper.complementCourse(teacher);
+        Integer integer = courseMapper.complementCourse(courseInfoVo);
         if(integer>0){
             return true;
 
@@ -212,12 +212,6 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
-    @Override
-    public List<Teacher> findTeach(Teacher teacher) {
-        List<Teacher> teach = courseMapper.findTeach(teacher);
-        return teach;
-
-    }
 
 
 }

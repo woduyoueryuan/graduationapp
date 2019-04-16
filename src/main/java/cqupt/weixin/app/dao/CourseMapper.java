@@ -47,7 +47,6 @@ public interface CourseMapper {
 
     Students findIsExistStu(Students students);
 
-    Integer complementCourse(Teacher teacher);
+    Integer complementCourse(CourseInfoVo courseInfoVo);
 
-    List<Teacher> findTeach(Teacher teacher);
 }

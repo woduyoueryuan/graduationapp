@@ -47,7 +47,6 @@ public interface CourseService {
 
     Students findIsExistStu(Students students);
 
-    boolean complementCourse(Teacher teacher);
+    boolean complementCourse(CourseInfoVo courseInfoVo);
 
-    List<Teacher> findTeach(Teacher teacher);
 }
