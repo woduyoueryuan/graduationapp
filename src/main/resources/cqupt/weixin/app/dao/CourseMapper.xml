@@ -78,6 +78,6 @@
         select `name` from students where open_id=#{openId}
     </select>
     <update id="complementCourse" parameterType="Teacher" >
-        update course_info set is_complete=#{isComplete} where open_id=#{openId}
+        update course_info set is_complete=1 where open_id=#{openId}
     </update>
 </mapper>
