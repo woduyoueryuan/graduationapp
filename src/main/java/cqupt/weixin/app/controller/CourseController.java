@@ -214,9 +214,22 @@ public class CourseController {
     @RequestMapping("/complementCourse")
     public @ResponseBody ResponseResult complementCourse(@RequestBody Teacher teacher){
         //根据openid查询是否有此老师，有就成功结课
+        Teacher teacher1;
         try {
 
-            boolean b = courseService.complementCourse(teacher);
+            List<Teacher> teach = courseService.findTeach(teacher);
+            if(teach.isEmpty()){
+                return new ResponseResult("-1","你不是老师不能结课！");
+            }else{
+                teacher1=teach.get(0);
+            }
+        }catch (Exception e){
+            return new ResponseResult("-1","系统内部错误！");
+        }
+
+        try {
+
+            boolean b = courseService.complementCourse(teacher1);
             if(b){
                 return new ResponseResult("200","结课成功！");
             }else {

@@ -212,5 +212,12 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
+    public List<Teacher> findTeach(Teacher teacher) {
+        List<Teacher> teach = courseMapper.findTeach(teacher);
+        return teach;
+
+    }
+
 
 }

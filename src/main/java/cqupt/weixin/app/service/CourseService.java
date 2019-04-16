@@ -49,4 +49,5 @@ public interface CourseService {
 
     boolean complementCourse(Teacher teacher);
 
+    List<Teacher> findTeach(Teacher teacher);
 }
