@@ -164,11 +164,7 @@
       <version>2.4</version>
     </dependency>
 
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>1.2.2</version>
-    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
