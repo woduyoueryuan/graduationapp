@@ -40,4 +40,14 @@ public class Teacher {
     public void setOpenId(String openId) {
         this.openId = openId;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", teachName='" + teachName + '\'' +
+                ", teachId='" + teachId + '\'' +
+                ", openId='" + openId + '\'' +
+                '}';
+    }
 }

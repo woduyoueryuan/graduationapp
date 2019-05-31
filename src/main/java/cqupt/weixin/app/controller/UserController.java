@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 
 @Controller
@@ -65,8 +64,15 @@ public class UserController {
         if("".equals(teacher.getTeachName())){
             return new ResponseResult("-1","请输入教师名字！");
         }
-        String teachId= UUID.randomUUID().toString().replaceAll("-","");
-        teacher.setTeachId(teachId);
+        //查询是否有教师资格
+        try{
+            Teacher teach = courseService.isTeach(teacher);
+            if(teach==null){
+                return new ResponseResult("-1","你还没有资格，请获取资格！");
+            }
+        }catch (Exception e){
+            return new ResponseResult("-1","系统内部错误！");
+        }
         boolean addTeacher = courseService.addTeacher(teacher);
         if (addTeacher) {
             return new ResponseResult("200", "添加成功！");

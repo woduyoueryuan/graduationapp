@@ -71,4 +71,15 @@ public class UpController{
         }
         return new ResponseResult<List<CourseWare>>("200","查询成功！",courseWare);
     }
+
+    @RequestMapping("/uploadImage")
+    public ResponseResult uploadImage( MultipartFile[] uploadimage ){
+
+
+        for(MultipartFile a:uploadimage){
+            System.out.println(a.getOriginalFilename());
+        }
+        return null;
+    }
+
 }

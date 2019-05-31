@@ -49,4 +49,5 @@ public interface CourseMapper {
 
     Integer complementCourse(CourseInfoVo courseInfoVo);
 
+    Teacher isTeach(Teacher teacher);
 }

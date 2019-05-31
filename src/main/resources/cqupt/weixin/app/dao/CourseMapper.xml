@@ -33,9 +33,9 @@
     <select id="findFile" parameterType="String" resultType="CourseWare">
         select file_size from courseware where original_filename=#{original_filename}
     </select>
-    <insert id="addTeacher" parameterType="Teacher" >
-        insert into  teachers (teach_name,teach_id,open_id) values (#{teachName},#{teachId},#{openId})
-    </insert>
+    <update id="addTeacher" parameterType="Teacher" >
+        update teachers set open_id=#{openId},teach_name=#{teachName} where id=#{id}
+    </update>
     <select id="findTeacherByName" parameterType="Teacher" resultType="Teacher">
         select * from teachers where teach_name=#{teachName}
     </select>
@@ -80,4 +80,7 @@
     <update id="complementCourse" parameterType="CourseInfoVo" >
         update course_info set is_complete=1 where id=#{id}
     </update>
+    <select id="isTeach" parameterType="Teacher" resultType="Teacher">
+        select * from teachers where id=#{id}
+    </select>
 </mapper>

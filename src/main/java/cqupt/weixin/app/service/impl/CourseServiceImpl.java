@@ -212,6 +212,11 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
+    public Teacher isTeach(Teacher teacher) {
+
+        return courseMapper.isTeach(teacher);
+    }
 
 
 }

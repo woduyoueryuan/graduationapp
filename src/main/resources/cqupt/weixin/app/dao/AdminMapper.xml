@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cqupt.weixin.app.dao.AdminMapper">
+    <select id="login" parameterType="Admin" resultType="Admin">
+        select * from admin where username=#{username} and password=#{password}
+    </select>
+    <insert id="addTeacher" parameterType="Teacher" >
+        insert into teachers (id,teach_id) values (#{id},#{teachId})
+    </insert>
+</mapper>

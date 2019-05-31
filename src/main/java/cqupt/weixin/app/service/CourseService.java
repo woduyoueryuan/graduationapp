@@ -49,4 +49,5 @@ public interface CourseService {
 
     boolean complementCourse(CourseInfoVo courseInfoVo);
 
+    Teacher isTeach(Teacher teacher);
 }
