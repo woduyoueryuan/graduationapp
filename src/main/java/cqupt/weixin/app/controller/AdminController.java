@@ -29,6 +29,7 @@ public class AdminController {
     }
 
     @RequestMapping("/zige")
+
     public ResponseResult zige(@RequestBody Teacher teacher){
         if("".equals(teacher.getTeachName())||teacher.getTeachName()==null){
             return new ResponseResult("-1","请输入教师名字！");
