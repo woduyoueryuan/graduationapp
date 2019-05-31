@@ -21,11 +21,18 @@ public class AdminController {
         if(admin.getUsername().equals("")||admin.getPassword().equals("")){
             return new ResponseResult("-1","用户名密码不能为空！");
         }
-        Admin loginAdmin = adminService.login(admin);
+        Admin loginAdmin=null;
+        try{
+             loginAdmin = adminService.login(admin);
+        }catch (Exception e){
+            return new ResponseResult("-1","系统内部错误！");
+        }
         if(loginAdmin!=null){
             return new ResponseResult("200","登陆成功！");
+        }else {
+            return new ResponseResult("-1","登陆失败！");
         }
-        return new ResponseResult("-1","登陆失败！");
+
     }
 
     @RequestMapping("/zige")

@@ -33,7 +33,7 @@
                 data:JSON.stringify(jsonData),
                 dataType:"json",
                 success:function (res){
-                    //alert(res.code)
+                    alert(res.code)
                     if(res.code==200){
                         $(location).prop('href','http://localhost:8080/weixinapp/list.html')
                     }else{
