@@ -43,7 +43,7 @@ public class AdminController {
             adminService.addTeacher(teacher);
             return new ResponseResult("200","添加成功！");
         }catch (Exception e){
-
+            //d
             return new ResponseResult("-1","添加失败！");
         }
     }
