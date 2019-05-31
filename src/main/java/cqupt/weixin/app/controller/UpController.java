@@ -65,6 +65,7 @@ public class UpController{
     public ResponseResult<List<CourseWare>> findAllFile(){
      List<CourseWare> courseWare;
         try {
+
            courseWare= courseService.findAllFile();
         }catch (Exception e){
             return new ResponseResult("-1","系统内部错误！");
