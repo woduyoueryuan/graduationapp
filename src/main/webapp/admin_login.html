@@ -28,14 +28,14 @@
             $.ajax({
 
                 type:"json",
-                url:"http://148.70.95.4:8080/weixinapp/admin/login",
+                url:"http://localhost:8080/weixinapp/admin/login",
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify(jsonData),
                 dataType:"json",
                 success:function (res){
                     //alert(res.code)
                     if(res.code==200){
-                        $(location).prop('href','http://148.70.95.4:8080/weixinapp/list.html')
+                        $(location).prop('href','http://localhost:8080/weixinapp/list.html')
                     }else{
                         alert(res.msg)
                     }
